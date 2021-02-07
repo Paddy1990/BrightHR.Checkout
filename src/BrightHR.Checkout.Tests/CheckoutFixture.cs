@@ -1,9 +1,10 @@
 using BrightHR.Checkout.Models;
+using Should;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
-using Xunit.Should;
 
 namespace BrightHR.Checkout.Tests
 {
@@ -32,7 +33,9 @@ namespace BrightHR.Checkout.Tests
             _checkout.Scan(sku);
 
             //Assert
-            _checkout.ScannedProducts.ShouldContain(sku);
+            var scannedProducts = _checkout.ScannedProducts.ToList();
+            scannedProducts.Count.ShouldEqual(1);
+            scannedProducts.ShouldContain(sku);
         }
 
 
