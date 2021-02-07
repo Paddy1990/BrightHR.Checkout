@@ -3,10 +3,9 @@ using Xunit;
 
 namespace BrightHR.Checkout.Tests
 {
-    public class UnitTest1
+    public class CheckoutFixture
     {
-        [Fact]
-        public void Test1()
+        public CheckoutFixture()
         {
 
         }
