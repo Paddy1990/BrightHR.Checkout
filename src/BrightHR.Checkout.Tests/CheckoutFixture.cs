@@ -24,6 +24,19 @@ namespace BrightHR.Checkout.Tests
         }
 
         [Fact]
+        public void Scan_Returns_Early_When_Item_Null_Or_Empty()
+        {
+            //Arrange
+            var sku = string.Empty;
+
+            //Act
+            _checkout.Scan(sku);
+
+            //Assert
+            _checkout.ScannedProducts.Count.ShouldEqual(0);
+        }
+
+        [Fact]
         public void Scan_Adds_To_ScannedProducts()
         {
             //Arrange
