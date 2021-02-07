@@ -89,14 +89,6 @@ namespace BrightHR.Checkout.Tests
             }
         }
 
-        private void AssertScannedProductsContains(string[] items)
-        {
-            foreach (var item in items)
-            {
-                _checkout.ScannedProducts.ShouldContain(item);
-            }
-        }
-
         private void SetupOffersData()
         {
             _offers = new List<Offer>
