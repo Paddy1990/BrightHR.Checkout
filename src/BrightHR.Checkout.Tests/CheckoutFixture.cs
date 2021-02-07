@@ -54,7 +54,7 @@ namespace BrightHR.Checkout.Tests
         public void Scan_Returns_Early_When_Sku_Missing_In_Products_List()
         {
             //Arrange
-            var sku = "D";
+            var sku = "E";
 
             //Act
             _checkout.Scan(sku);
@@ -64,6 +64,38 @@ namespace BrightHR.Checkout.Tests
             _checkout.ScannedProducts.ShouldNotContain(sku);
         }
 
+        [Theory]
+        [InlineData(new string[0], 1)]
+        [InlineData(new[] { "F", "A", "S" }, 2)]
+        [InlineData(new[] { "A", "A", "A" }, 3)]
+        [InlineData(new[] { "A", "B", "C", "D", "E" }, 4)]
+        [InlineData(new[] { "A", "B", "C", "D", "E", "" }, 4)]
+        public void Scan_Adds_To_ScannedProducts_For_Multiple_Products(string[] skus, int count)
+        {
+            //Arrange
+
+            //Act
+            ScanProducts(skus);
+
+            //Assert
+            _checkout.ScannedProducts.Count.ShouldEqual(count);
+        }
+
+        private void ScanProducts(string[] items)
+        {
+            foreach (var item in items)
+            {
+                _checkout.Scan(item);
+            }
+        }
+
+        private void AssertScannedProductsContains(string[] items)
+        {
+            foreach (var item in items)
+            {
+                _checkout.ScannedProducts.ShouldContain(item);
+            }
+        }
 
         private void SetupOffersData()
         {
