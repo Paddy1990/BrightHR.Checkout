@@ -30,7 +30,7 @@ namespace BrightHR.Checkout.Tests
             var sku = "A";
 
             //Act
-            _checkout.Scan(sku);
+            ScanProducts(new[] { sku });
 
             //Assert
             _checkout.ScannedProducts.Count.ShouldEqual(1);
@@ -44,7 +44,7 @@ namespace BrightHR.Checkout.Tests
             var sku = string.Empty;
 
             //Act
-            _checkout.Scan(sku);
+            ScanProducts(new[] { sku });
 
             //Assert
             _checkout.ScannedProducts.Count.ShouldEqual(0);
@@ -57,7 +57,7 @@ namespace BrightHR.Checkout.Tests
             var sku = "E";
 
             //Act
-            _checkout.Scan(sku);
+            ScanProducts(new[] { sku });
 
             //Assert
             _checkout.ScannedProducts.Count.ShouldEqual(0);
@@ -86,13 +86,26 @@ namespace BrightHR.Checkout.Tests
         public void GetTotalPrice_Returns_Correct_Price_For_Scanned_Products()
         {
             //Arrange
-            _checkout.Scan("A");
+            ScanProducts(new[] { "A" });
 
             //Act
             var total = _checkout.GetTotalPrice();
 
             //Assert
             total.ShouldEqual(50);
+        }
+
+        [Fact]
+        public void GetTotalPrice_Returns_Correct_Price_For_Discounted_Products()
+        {
+            //Arrange
+            ScanProducts(new[] { "A", "A", "A" });
+
+            //Act
+            var total = _checkout.GetTotalPrice();
+
+            //Assert
+            total.ShouldEqual(130);
         }
 
         private void ScanProducts(string[] items)
