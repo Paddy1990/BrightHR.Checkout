@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Xunit;
+using Xunit.Should;
 
 namespace BrightHR.Checkout.Tests
 {
@@ -11,15 +12,29 @@ namespace BrightHR.Checkout.Tests
         private IEnumerable<Product> _products;
         private IEnumerable<Offer> _offers;
 
-        private readonly Checkout _sut;
+        private readonly Checkout _checkout;
 
         public CheckoutFixture()
         {
             SetupProductsData();
             SetupOffersData();
 
-            _sut = new Checkout(_products, _offers);
+            _checkout = new Checkout(_products, _offers);
         }
+
+        [Fact]
+        public void Scan_Adds_To_ScannedProducts()
+        {
+            //Arrange
+            var sku = "A";
+
+            //Act
+            _checkout.Scan(sku);
+
+            //Assert
+            _checkout.ScannedProducts.ShouldContain(sku);
+        }
+
 
         private void SetupOffersData()
         {
