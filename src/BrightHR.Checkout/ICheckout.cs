@@ -4,7 +4,7 @@ namespace BrightHR.Checkout
 {
     public interface ICheckout
     {
-        public IEnumerable<string> ScannedProducts { get; }
+        public IList<string> ScannedProducts { get; }
 
         void Scan(string item);
         int GetTotalPrice();

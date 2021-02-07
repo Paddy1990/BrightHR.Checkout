@@ -8,15 +8,17 @@ namespace BrightHR.Checkout
         private IEnumerable<Product> _products;
         private IEnumerable<Offer> _Offers;
 
-        private IEnumerable<string> _scannedProducts;
+        private IList<string> _scannedProducts;
 
         public Checkout(IEnumerable<Product> products, IEnumerable<Offer> offers)
         {
             _products = products;
             _Offers = offers;
+
+            _scannedProducts = new List<string>();
         }
 
-        public IEnumerable<string> ScannedProducts { get => _scannedProducts; }
+        public IList<string> ScannedProducts { get => _scannedProducts; }
 
         public int GetTotalPrice()
         {
@@ -25,7 +27,7 @@ namespace BrightHR.Checkout
 
         public void Scan(string item)
         {
-            throw new System.NotImplementedException();
+            _scannedProducts.Add(item);
         }
     }
 }

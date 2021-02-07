@@ -33,9 +33,8 @@ namespace BrightHR.Checkout.Tests
             _checkout.Scan(sku);
 
             //Assert
-            var scannedProducts = _checkout.ScannedProducts.ToList();
-            scannedProducts.Count.ShouldEqual(1);
-            scannedProducts.ShouldContain(sku);
+            _checkout.ScannedProducts.Count.ShouldEqual(1);
+            _checkout.ScannedProducts.ShouldContain(sku);
         }
 
 
