@@ -89,6 +89,7 @@ namespace BrightHR.Checkout.Tests
         [InlineData(new[] { "A", "A", "A" }, 130)]
         [InlineData(new[] { "A", "B", "D", "B", "E" }, 110)]
         [InlineData(new[] { "A", "B", "C", "D", "B", "A", "A" }, 210)]
+        [InlineData(new[] { "A", "A", "A", "A", "A", "A", "A" }, 310)]
         public void GetTotalPrice_Returns_Correct_Price_For_Discounted_Products(string[] skus, decimal totalPrice)
         {
             //Arrange
@@ -113,8 +114,8 @@ namespace BrightHR.Checkout.Tests
         {
             _offers = new List<Offer>
             {
-                new Offer("A", 3, 130m),
-                new Offer("B", 2, 45m),
+                new Offer("A", 3, 20m),
+                new Offer("B", 2, 15m),
             };
         }
 

@@ -4,18 +4,18 @@
     {
         public string Sku { get; set; }
         public int Quantity { get; set; }
-        public decimal Price { get; set; }
+        public decimal Discount { get; set; }
 
         public Offer()
         {
 
         }
 
-        public Offer(string sku, int quantity, decimal price)
+        public Offer(string sku, int quantity, decimal discount)
         {
             Sku = sku;
             Quantity = quantity;
-            Price = price;
+            Discount = discount;
         }
     }
 }

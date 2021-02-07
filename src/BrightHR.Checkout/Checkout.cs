@@ -1,4 +1,5 @@
 ﻿using BrightHR.Checkout.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -57,13 +58,8 @@ namespace BrightHR.Checkout
 
         private decimal CalculateOfferDiscount(Offer offer)
         {
-            var product = _products.First(product => product.Sku == offer.Sku);
             var productCount = _scannedProducts.Count(scannedProduct => offer.Sku == scannedProduct);
-
-            var productPrice = product.UnitPrice * productCount;
-            var offerPrice = (productCount / offer.Quantity) * offer.Price;
-
-            return productPrice - offerPrice;
+            return (productCount / offer.Quantity) * offer.Discount;
         }
 
     }
