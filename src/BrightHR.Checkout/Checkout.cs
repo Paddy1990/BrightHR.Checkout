@@ -1,19 +1,20 @@
 ﻿using BrightHR.Checkout.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BrightHR.Checkout
 {
     public class Checkout : ICheckout
     {
         private IEnumerable<Product> _products;
-        private IEnumerable<Offer> _Offers;
+        private IEnumerable<Offer> _offers;
 
         private IList<string> _scannedProducts;
 
         public Checkout(IEnumerable<Product> products, IEnumerable<Offer> offers)
         {
             _products = products;
-            _Offers = offers;
+            _offers = offers;
 
             _scannedProducts = new List<string>();
         }
@@ -31,6 +32,11 @@ namespace BrightHR.Checkout
             {
                 //Log the fact we have a null or empty item passed in!
                 return;
+            }
+
+            if (!_products.Any(p => p.Sku == item))
+            {
+                throw new KeyNotFoundException($"The Product with SKU {item} does not exist in the system.");
             }
 
             _scannedProducts.Add(item);

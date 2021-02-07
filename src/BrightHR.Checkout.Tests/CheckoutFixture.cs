@@ -24,6 +24,20 @@ namespace BrightHR.Checkout.Tests
         }
 
         [Fact]
+        public void Scan_Adds_To_ScannedProducts()
+        {
+            //Arrange
+            var sku = "A";
+
+            //Act
+            _checkout.Scan(sku);
+
+            //Assert
+            _checkout.ScannedProducts.Count.ShouldEqual(1);
+            _checkout.ScannedProducts.ShouldContain(sku);
+        }
+
+        [Fact]
         public void Scan_Returns_Early_When_Item_Null_Or_Empty()
         {
             //Arrange
@@ -37,17 +51,19 @@ namespace BrightHR.Checkout.Tests
         }
 
         [Fact]
-        public void Scan_Adds_To_ScannedProducts()
+        public void Scan_Throws_When_Sku_Missing_In_Products()
         {
             //Arrange
-            var sku = "A";
+            var sku = "E";
 
             //Act
-            _checkout.Scan(sku);
+            var exception = Assert.Throws<KeyNotFoundException>(() => _checkout.Scan(sku));
 
             //Assert
-            _checkout.ScannedProducts.Count.ShouldEqual(1);
-            _checkout.ScannedProducts.ShouldContain(sku);
+            exception.Message.ShouldEqual($"The Product with SKU {sku} does not exist in the system.");
+
+            _checkout.ScannedProducts.Count.ShouldEqual(0);
+            _checkout.ScannedProducts.ShouldNotContain(sku);
         }
 
 
