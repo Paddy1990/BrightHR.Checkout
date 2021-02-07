@@ -8,13 +8,15 @@ namespace BrightHR.Checkout
         private IEnumerable<Product> _products;
         private IEnumerable<Offer> _Offers;
 
-        private IEnumerable<string> _productsScanned;
+        private IEnumerable<string> _scannedProducts;
 
         public Checkout(IEnumerable<Product> products, IEnumerable<Offer> offers)
         {
             _products = products;
             _Offers = offers;
         }
+
+        public IEnumerable<string> ScannedProducts { get => _scannedProducts; }
 
         public int GetTotalPrice()
         {
