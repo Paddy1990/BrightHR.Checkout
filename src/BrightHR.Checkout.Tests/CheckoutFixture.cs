@@ -65,8 +65,8 @@ namespace BrightHR.Checkout.Tests
         }
 
         [Theory]
-        [InlineData(new string[0], 1)]
-        [InlineData(new[] { "F", "A", "S" }, 2)]
+        [InlineData(new string[0], 0)]
+        [InlineData(new[] { "F", "A", "S" }, 1)]
         [InlineData(new[] { "A", "A", "A" }, 3)]
         [InlineData(new[] { "A", "B", "C", "D", "E" }, 4)]
         [InlineData(new[] { "A", "B", "C", "D", "E", "" }, 4)]
