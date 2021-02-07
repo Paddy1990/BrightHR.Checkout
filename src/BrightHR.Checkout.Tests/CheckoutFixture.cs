@@ -13,6 +13,21 @@ namespace BrightHR.Checkout.Tests
 
         public CheckoutFixture()
         {
+            SetupProductsData();
+            SetupOffersData();
+        }
+
+        private void SetupOffersData()
+        {
+            _offers = new List<Offer>
+            {
+                new Offer("A", 3, 130m),
+                new Offer("B", 2, 45m),
+            };
+        }
+
+        private void SetupProductsData()
+        {
             _products = new List<Product>
             {
                 new Product("A", 50m),
@@ -20,12 +35,7 @@ namespace BrightHR.Checkout.Tests
                 new Product("C", 20m),
                 new Product("D", 15m),
             };
-
-            _offers = new List<Offer>
-            {
-                new Offer("A", 3, 130m),
-                new Offer("B", 2, 45m),
-            };
         }
+
     }
 }
