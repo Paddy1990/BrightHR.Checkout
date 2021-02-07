@@ -51,17 +51,15 @@ namespace BrightHR.Checkout.Tests
         }
 
         [Fact]
-        public void Scan_Throws_When_Sku_Missing_In_Products()
+        public void Scan_Returns_Early_When_Sku_Missing_In_Products_List()
         {
             //Arrange
-            var sku = "E";
+            var sku = "D";
 
             //Act
-            var exception = Assert.Throws<KeyNotFoundException>(() => _checkout.Scan(sku));
+            _checkout.Scan(sku);
 
             //Assert
-            exception.Message.ShouldEqual($"The Product with SKU {sku} does not exist in the system.");
-
             _checkout.ScannedProducts.Count.ShouldEqual(0);
             _checkout.ScannedProducts.ShouldNotContain(sku);
         }

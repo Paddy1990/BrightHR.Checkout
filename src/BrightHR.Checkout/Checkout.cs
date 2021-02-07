@@ -36,7 +36,8 @@ namespace BrightHR.Checkout
 
             if (!_products.Any(p => p.Sku == item))
             {
-                throw new KeyNotFoundException($"The Product with SKU {item} does not exist in the system.");
+                //Log the fact we have a null or empty item passed in!
+                return;
             }
 
             _scannedProducts.Add(item);
