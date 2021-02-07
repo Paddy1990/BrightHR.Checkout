@@ -27,6 +27,12 @@ namespace BrightHR.Checkout
 
         public void Scan(string item)
         {
+            if (string.IsNullOrEmpty(item))
+            {
+                //Log the fact we have a null or empty item passed in!
+                return;
+            }
+
             _scannedProducts.Add(item);
         }
     }
