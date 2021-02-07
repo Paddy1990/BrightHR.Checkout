@@ -82,6 +82,19 @@ namespace BrightHR.Checkout.Tests
             _checkout.ScannedProducts.Count.ShouldEqual(count);
         }
 
+        [Fact]
+        public void GetTotalPrice_Returns_Zero_When_No_Scanned_Products()
+        {
+            //Arrange
+            var skus = new string[0];
+            ScanProducts(skus);
+
+            //Act
+            var total = _checkout.GetTotalPrice();
+
+            //Assert
+            total.ShouldEqual(0m);
+        }
 
         [Theory]
         [InlineData(new string[0], 0)]
