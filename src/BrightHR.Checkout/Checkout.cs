@@ -10,9 +10,10 @@ namespace BrightHR.Checkout
 
         private IEnumerable<string> _productsScanned;
 
-        public Checkout()
+        public Checkout(IEnumerable<Product> products, IEnumerable<Offer> offers)
         {
-
+            _products = products;
+            _Offers = offers;
         }
 
         public int GetTotalPrice()
