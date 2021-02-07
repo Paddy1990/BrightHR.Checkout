@@ -90,6 +90,8 @@ namespace BrightHR.Checkout.Tests
         [InlineData(new[] { "A", "B", "D", "B", "E" }, 110)]
         [InlineData(new[] { "A", "B", "C", "D", "B", "A", "A" }, 210)]
         [InlineData(new[] { "A", "A", "A", "A", "A", "A", "A" }, 310)]
+        [InlineData(new[] { "A", "A", "A", "A", "B", "B", "B" }, 255)]
+        [InlineData(new[] { "A", "A", "A", "A", "B", "B", "B", "C", "C", "D", "D" }, 325)]
         public void GetTotalPrice_Returns_Correct_Price_For_Discounted_Products(string[] skus, decimal totalPrice)
         {
             //Arrange
