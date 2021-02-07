@@ -11,10 +11,14 @@ namespace BrightHR.Checkout.Tests
         private IEnumerable<Product> _products;
         private IEnumerable<Offer> _offers;
 
+        private readonly Checkout _sut;
+
         public CheckoutFixture()
         {
             SetupProductsData();
             SetupOffersData();
+
+            _sut = new Checkout(_products, _offers);
         }
 
         private void SetupOffersData()
