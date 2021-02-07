@@ -86,6 +86,7 @@ namespace BrightHR.Checkout.Tests
         public void GetTotalPrice_Returns_Correct_Price_For_Scanned_Products()
         {
             //Arrange
+            _checkout.Scan("B");
 
             //Act
             var total = _checkout.GetTotalPrice();

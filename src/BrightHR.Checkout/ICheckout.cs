@@ -7,6 +7,6 @@ namespace BrightHR.Checkout
         public IList<string> ScannedProducts { get; }
 
         void Scan(string item);
-        int GetTotalPrice();
+        decimal GetTotalPrice();
     }
 }

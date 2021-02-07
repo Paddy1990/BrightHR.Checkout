@@ -21,9 +21,10 @@ namespace BrightHR.Checkout
 
         public IList<string> ScannedProducts { get => _scannedProducts; }
 
-        public int GetTotalPrice()
+        public decimal GetTotalPrice()
         {
-            throw new System.NotImplementedException();
+            var products = _products.Where(p => _scannedProducts.Any(sp => p.Sku == sp));
+            return products.Sum(p => p.UnitPrice);
         }
 
         public void Scan(string item)
