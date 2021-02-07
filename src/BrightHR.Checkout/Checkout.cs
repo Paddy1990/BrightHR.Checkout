@@ -23,8 +23,13 @@ namespace BrightHR.Checkout
 
         public decimal GetTotalPrice()
         {
-            var products = _products.Where(p => _scannedProducts.Any(sp => p.Sku == sp));
-            return products.Sum(p => p.UnitPrice);
+            var products = _products.Where(product => _scannedProducts.Any(scannedProduct => product.Sku == scannedProduct));
+            var offers = _offers.Where(offer => _scannedProducts.Any(scannedProduct => offer.Sku == scannedProduct));
+
+            var total = _scannedProducts.Sum(scannedProduct => GetUnitPrice(scannedProduct, products));
+            var totalDiscount = offers.Sum(offer => CalculateOfferDiscount(offer));
+
+            return total - totalDiscount;
         }
 
         public void Scan(string item)
@@ -43,5 +48,23 @@ namespace BrightHR.Checkout
 
             _scannedProducts.Add(item);
         }
+
+        private static decimal GetUnitPrice(string scannedProduct, IEnumerable<Product> products)
+        {
+            var product = products.First(product => product.Sku == scannedProduct);
+            return product.UnitPrice;
+        }
+
+        private decimal CalculateOfferDiscount(Offer offer)
+        {
+            var product = _products.First(product => product.Sku == offer.Sku);
+            var productCount = _scannedProducts.Count(scannedProduct => offer.Sku == scannedProduct);
+
+            var productPrice = product.UnitPrice * productCount;
+            var offerPrice = (productCount / offer.Quantity) * offer.Price;
+
+            return productPrice - offerPrice;
+        }
+
     }
 }

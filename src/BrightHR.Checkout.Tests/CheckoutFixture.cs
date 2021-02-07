@@ -70,6 +70,7 @@ namespace BrightHR.Checkout.Tests
         [InlineData(new[] { "A", "A", "A" }, 3)]
         [InlineData(new[] { "A", "B", "C", "D", "E" }, 4)]
         [InlineData(new[] { "A", "B", "C", "D", "E", "" }, 4)]
+        [InlineData(new[] { "A", "B", "A", "D", "B", "C" }, 6)]
         public void Scan_Adds_To_ScannedProducts_For_Multiple_Products(string[] skus, int count)
         {
             //Arrange
@@ -82,30 +83,22 @@ namespace BrightHR.Checkout.Tests
         }
 
 
-        [Fact]
-        public void GetTotalPrice_Returns_Correct_Price_For_Scanned_Products()
+        [Theory]
+        [InlineData(new string[0], 0)]
+        [InlineData(new[] { "F", "A", "S" }, 50)]
+        [InlineData(new[] { "A", "A", "A" }, 130)]
+        [InlineData(new[] { "A", "B", "D", "B", "E" }, 110)]
+        [InlineData(new[] { "A", "B", "C", "D", "B", "A", "A" }, 210)]
+        public void GetTotalPrice_Returns_Correct_Price_For_Discounted_Products(string[] skus, decimal totalPrice)
         {
             //Arrange
-            ScanProducts(new[] { "A" });
+            ScanProducts(skus);
 
             //Act
             var total = _checkout.GetTotalPrice();
 
             //Assert
-            total.ShouldEqual(50);
-        }
-
-        [Fact]
-        public void GetTotalPrice_Returns_Correct_Price_For_Discounted_Products()
-        {
-            //Arrange
-            ScanProducts(new[] { "A", "A", "A" });
-
-            //Act
-            var total = _checkout.GetTotalPrice();
-
-            //Assert
-            total.ShouldEqual(130);
+            total.ShouldEqual(totalPrice);
         }
 
         private void ScanProducts(string[] items)
